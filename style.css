@@ -1,0 +1,333 @@
+:root {
+    --bg-deep: #0a2540;
+    --bg-dark: #262625;
+    --text-washi: #f9f9ed;
+    --action-red: #e10600;
+    --recovery-teal: #0f5e5a;
+    --glass-bg: rgba(10, 37, 64, 0.4);
+    --glass-border: rgba(249, 249, 237, 0.1);
+    --neon-glow: 0 0 15px rgba(225, 6, 0, 0.5);
+}
+
+@keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.9; box-shadow: 0 0 20px rgba(225, 6, 0, 0.3); }
+    50% { transform: scale(1.05); opacity: 1; box-shadow: 0 0 40px rgba(225, 6, 0, 0.6); }
+}
+
+@keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    100% { transform: scale(1.2); opacity: 0; }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Lexend', sans-serif;
+    background-color: var(--bg-deep);
+    color: var(--text-washi);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image:
+        radial-gradient(circle at center, rgba(10, 37, 64, 0.5) 0%, var(--bg-deep) 100%);
+    overflow-x: hidden;
+}
+
+/* Seigaiha Pattern Overlay */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='60' viewBox='0 0 100 60'%3E%3Cpath d='M0 30 A30 30 0 0 1 60 30 M0 25 A25 25 0 0 1 50 25 M0 20 A20 20 0 0 1 40 20 M0 15 A15 15 0 0 1 30 15 M0 10 A10 10 0 0 1 20 10 M0 5 A5 5 0 0 1 10 5' fill='none' stroke='%23f9f9ed' stroke-opacity='0.03' stroke-width='1'/%3E%3C/svg%3E");
+    z-index: -1;
+    pointer-events: none;
+}
+
+#app {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 1rem;
+    padding: 2rem;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.enso-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 2rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.enso-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid rgba(225, 6, 0, 0.2);
+    animation: pulse-ring 2s infinite;
+}
+
+.enso-circle {
+    width: 90px;
+    height: 90px;
+    border-radius: 48% 52% 55% 45% / 55% 45% 55% 45%;
+    border: 8px solid var(--action-red);
+    animation: breathe 4s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(225, 6, 0, 0.1);
+    box-shadow: inset 0 0 20px rgba(225, 6, 0, 0.2);
+}
+
+h1 {
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+}
+
+.subtitle {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.75rem;
+    opacity: 0.6;
+    margin-bottom: 2rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.7rem;
+    opacity: 0.5;
+    margin-bottom: 0.5rem;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper .material-icons {
+    position: absolute;
+    left: 12px;
+    font-size: 1.2rem;
+    opacity: 0.4;
+    transition: color 0.3s;
+}
+
+input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 12px 12px 40px;
+    border-radius: 0.5rem;
+    color: var(--text-washi);
+    outline: none;
+    transition: all 0.3s;
+}
+
+input:focus {
+    border-color: var(--action-red);
+    box-shadow: 0 0 10px rgba(225, 6, 0, 0.2);
+}
+
+input:focus + .material-icons {
+    color: var(--action-red);
+    opacity: 1;
+}
+
+.btn {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: var(--action-red);
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: var(--neon-glow);
+}
+
+.btn:hover {
+    background: #ff0700;
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(225, 6, 0, 0.7);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    box-shadow: none;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: none;
+}
+
+/* Dashboard Styles */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--action-red);
+}
+
+.stat-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+
+.xp-bar-container {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.xp-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--action-red), #ff4d4d);
+    width: 0%;
+    transition: width 0.5s ease-out;
+}
+
+/* Workout Engine */
+.timer-display {
+    font-size: 4rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 2rem 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.recovery-mode {
+    background-color: var(--recovery-teal) !important;
+}
+
+.action-mode {
+    background-color: var(--bg-deep);
+}
+
+.back-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-washi);
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+.back-btn:hover {
+    opacity: 1;
+}
+
+.routine-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.routine-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.exercise-entry {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#workout-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    transition: background-color 0.5s ease;
+    pointer-events: none;
+    opacity: 0;
+}
+
+#workout-overlay.active {
+    opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    #app {
+        padding: 10px;
+    }
+    .glass-panel {
+        padding: 1.5rem;
+    }
+}
